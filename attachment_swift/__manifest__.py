@@ -12,8 +12,20 @@
     "depends": ["base_attachment_object_storage"],
     "external_dependencies": {
         "python": [
-            "swiftclient",
-            "keystoneclient",
+            # Real PyPI distribution names, not the bare import names: pip
+            # has no package literally called "swiftclient" (404) or a
+            # usably-installable "keystoneclient" (exists but with no
+            # installable releases) — verified live against pypi.org.
+            # This mismatch isn't cosmetic: a build/upgrade's combined pip
+            # install for every discovered module's declared deps hard-
+            # fails on the first bad name and falls back to installing
+            # every dependency one at a time, which drops any other
+            # module's exact-pinned dependency (e.g. l10n_do_dgii_factura_
+            # electronica's own cryptography/pyOpenSSL pins) to whatever a
+            # later, unrelated, unpinned package happens to pull in
+            # transitively instead.
+            "python-swiftclient",
+            "python-keystoneclient",
             "keystoneauth1",
         ],
     },
