@@ -10,20 +10,20 @@
     "license": "AGPL-3",
     "category": "Knowledge Management",
     "depends": ["base_attachment_object_storage"],
+    # Real PyPI distribution names below, not the bare import names --
+    # pip has no package literally named swiftclient (404) or a usably
+    # installable keystoneclient (exists but with no installable
+    # releases), verified live against pypi.org. This comment is
+    # deliberately OUTSIDE the "python" list below: OdooForge's own
+    # manifest scraper (services/worker/executors/build.go's
+    # externalPythonDeps) isn't a real Python parser, just a regex that
+    # captures every quoted substring between the list's own brackets --
+    # a comment placed *inside* those brackets gets its own quoted words
+    # and apostrophes scraped right along with the real dependencies,
+    # confirmed live producing garbled bogus entries in the generated
+    # Dockerfile.
     "external_dependencies": {
         "python": [
-            # Real PyPI distribution names, not the bare import names: pip
-            # has no package literally called "swiftclient" (404) or a
-            # usably-installable "keystoneclient" (exists but with no
-            # installable releases) — verified live against pypi.org.
-            # This mismatch isn't cosmetic: a build/upgrade's combined pip
-            # install for every discovered module's declared deps hard-
-            # fails on the first bad name and falls back to installing
-            # every dependency one at a time, which drops any other
-            # module's exact-pinned dependency (e.g. l10n_do_dgii_factura_
-            # electronica's own cryptography/pyOpenSSL pins) to whatever a
-            # later, unrelated, unpinned package happens to pull in
-            # transitively instead.
             "python-swiftclient",
             "python-keystoneclient",
             "keystoneauth1",
