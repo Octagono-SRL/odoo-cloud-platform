@@ -10,10 +10,14 @@
     "license": "AGPL-3",
     "category": "Knowledge Management",
     "depends": ["base_attachment_object_storage"],
+    # Real PyPI distribution names below, not the bare import names -- pip
+    # has no package literally named swiftclient (404) or a usably
+    # installable keystoneclient (exists but with no installable
+    # releases), verified live against pypi.org.
     "external_dependencies": {
         "python": [
-            "swiftclient",
-            "keystoneclient",
+            "python-swiftclient",
+            "python-keystoneclient",
             "keystoneauth1",
         ],
     },
